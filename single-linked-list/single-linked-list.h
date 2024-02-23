@@ -289,6 +289,7 @@ private:
                 tmp2.PushFront(*i);
             }
             swap(tmp2);
+
         }catch(...){
             tmp.Clear();
             tmp2.Clear();

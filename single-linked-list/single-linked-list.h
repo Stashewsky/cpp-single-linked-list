@@ -189,13 +189,7 @@ public:
 
     SingleLinkedList(std::initializer_list<Type> values) {
         assert(head_.next_node_ == nullptr && size_ == 0);
-        SingleLinkedList tmp;
-        SingleLinkedList tmp2;
-
-        for(auto i = values.begin(); i != values.end(); ++i){
-            tmp.PushFront(*i);
-        }
-        InitializateRange(tmp.begin(), tmp.end());
+        InitializateRange(values.begin(), values.end());
     }
 
     SingleLinkedList(const SingleLinkedList& other){
@@ -283,8 +277,23 @@ private:
 
     template<typename Iterator>
     void InitializateRange(Iterator begin, Iterator end){
-        for(auto it = begin; it != end; it++){
-            PushFront(*it);
+        SingleLinkedList tmp;
+        SingleLinkedList tmp2;
+//как сделать за один цикл? я не понимаю...вот  соавсем не понимаю.
+        try{
+            for(auto i = begin; i != end; ++i){
+                tmp.PushFront(*i);
+                auto it = tmp.begin();
+            }
+            for(auto i = tmp.begin(); i != tmp.end(); ++i){
+                tmp2.PushFront(*i);
+            }
+            swap(tmp2);
+
+        }catch(...){
+            tmp.Clear();
+            tmp2.Clear();
+            throw;
         }
     }
 };

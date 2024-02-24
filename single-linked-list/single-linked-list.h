@@ -276,25 +276,16 @@ private:
     size_t size_ = 0;
 
     template<typename Iterator>
-    void InitializateRange(Iterator begin, Iterator end){
+    void InitializateRange(Iterator begin, Iterator end) {
         SingleLinkedList tmp;
-        SingleLinkedList tmp2;
-//как сделать за один цикл? я не понимаю...вот  соавсем не понимаю.
-        try{
-            for(auto i = begin; i != end; ++i){
-                tmp.PushFront(*i);
-                auto it = tmp.begin();
-            }
-            for(auto i = tmp.begin(); i != tmp.end(); ++i){
-                tmp2.PushFront(*i);
-            }
-            swap(tmp2);
+        Node* current = &tmp.head_;
 
-        }catch(...){
-            tmp.Clear();
-            tmp2.Clear();
-            throw;
+        for (auto it = begin; it != end; ++it) {
+            current->next_node_ = new Node(*it, nullptr);
+            current = current->next_node_;
+            ++tmp.size_;
         }
+        swap(tmp);
     }
 };
 
